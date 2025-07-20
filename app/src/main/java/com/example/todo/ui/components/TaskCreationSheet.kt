@@ -49,7 +49,7 @@ fun TaskCreationSheet(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
                 val dateMillis = datePickerState.selectedDateMillis
-                val dateString = dateMillis?.let { dateFormatter.format("dd/MM/yyyy") } ?: "Sem data"
+                val dateString = dateMillis?.let { dateFormatter.format(Date(it)) } ?: "Sem data"
                 val now = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
                 val newTask = Task(
