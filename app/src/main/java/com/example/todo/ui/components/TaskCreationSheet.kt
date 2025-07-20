@@ -17,7 +17,7 @@ fun TaskCreationSheet(
 ) {
     var description by remember { mutableStateOf(TextFieldValue("")) }
 
-    val dateFormatter = remember { SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()) }
+    val dateFormatter = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
 
     val datePickerState = rememberDatePickerState()
 
@@ -50,7 +50,7 @@ fun TaskCreationSheet(
             onClick = {
                 val dateMillis = datePickerState.selectedDateMillis
                 val dateString = dateMillis?.let { dateFormatter.format(Date(it)) } ?: "Sem data"
-                val now = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+                val now = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
                 val newTask = Task(
                     description = description.text,
