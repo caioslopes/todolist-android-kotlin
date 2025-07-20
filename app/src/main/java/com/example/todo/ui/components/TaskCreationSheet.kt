@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.example.todo.model.Task
@@ -17,10 +16,8 @@ fun TaskCreationSheet(
     onSave: (Task) -> Unit
 ) {
     var description by remember { mutableStateOf(TextFieldValue("")) }
-    var selectedDate by remember { mutableStateOf<Date?>(null) }
 
-    val context = LocalContext.current
-    val dateFormatter = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
+    val dateFormatter = remember { SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()) }
 
     val datePickerState = rememberDatePickerState()
 
@@ -52,8 +49,8 @@ fun TaskCreationSheet(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
                 val dateMillis = datePickerState.selectedDateMillis
-                val dateString = dateMillis?.let { dateFormatter.format(Date(it)) } ?: "Sem data"
-                val now = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
+                val dateString = dateMillis?.let { dateFormatter.format("dd/MM/yyyy") } ?: "Sem data"
+                val now = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
                 val newTask = Task(
                     description = description.text,

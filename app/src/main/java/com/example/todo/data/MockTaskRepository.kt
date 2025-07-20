@@ -8,13 +8,13 @@ object MockTaskRepository {
         return listOf(
             Task(
                 description = "Comprar pão",
-                date = "2025-07-20",
-                createdAt = "2025-07-19 21:00"
+                date = "2025-07-22",
+                createdAt = "2025-07-19"
             ),
             Task(
                 description = "Estudar Kotlin",
-                date = "2025-07-21",
-                createdAt = "2025-07-19 19:00"
+                date = "2025-07-23",
+                createdAt = "2025-07-19"
             )
         )
     }
