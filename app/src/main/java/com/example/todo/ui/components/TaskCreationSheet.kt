@@ -8,6 +8,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.example.todo.model.Task
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -16,8 +19,6 @@ fun TaskCreationSheet(
     onSave: (Task) -> Unit
 ) {
     var description by remember { mutableStateOf(TextFieldValue("")) }
-
-    val dateFormatter = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
 
     val datePickerState = rememberDatePickerState()
 
@@ -48,8 +49,13 @@ fun TaskCreationSheet(
         Button(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                val dateMillis = datePickerState.selectedDateMillis
-                val dateString = dateMillis?.let { dateFormatter.format(Date(it)) } ?: "Sem data"
+                val dateString = datePickerState.selectedDateMillis?.let { millis ->
+                    Instant.ofEpochMilli(millis)
+                        .plusSeconds(3 * 60 * 60)
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate()
+                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                } ?: "Sem data"
                 val now = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
                 val newTask = Task(
